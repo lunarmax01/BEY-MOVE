@@ -26,6 +26,8 @@ if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32)
   throw new Error('SESSION_SECRET kamida 32 belgidan iborat bo‘lishi kerak');
 
 app.disable('x-powered-by');
+// VPS reverse proxy (Nginx) ortida HTTPS sessiya cookies uchun.
+if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 app.use(helmet());
 app.use(cors({ origin: clientUrl, credentials: true }));
 app.use(express.json({ limit: '100kb' }));
