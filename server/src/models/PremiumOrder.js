@@ -1,0 +1,3 @@
+import mongoose from 'mongoose';
+const schema=new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true,index:true},publicId:{type:String,required:true},plan:{code:String,label:String,days:Number,price:Number},bank:String,cardLast4:String,receiptPath:{type:String,required:true,select:false},receiptMime:{type:String,enum:['image/jpeg','image/png','image/webp','application/pdf'],required:true},receiptName:String,status:{type:String,enum:['PENDING','APPROVED','REJECTED'],default:'PENDING',index:true},reviewedBy:{type:mongoose.Schema.Types.ObjectId,ref:'User'},reviewedAt:Date,adminNote:String,telegramSent:{type:Boolean,default:false}},{timestamps:true});
+export default mongoose.model('PremiumOrder',schema);
